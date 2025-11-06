@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/tripora", // ✅ Adjust if your backend URL is different
+  baseURL: "https://tripora-2-0.onrender.com", // ✅ Adjust if your backend URL is different
 });
 
 // 🧠 Automatically attach token from localStorage for every request
