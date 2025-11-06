@@ -16,7 +16,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000' // Allow requests from your React frontend
+    origin: 'https://tripora-2-0-frontend.onrender.com/' // Allow requests from your React frontend
 }));
 app.use(express.json());
 
