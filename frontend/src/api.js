@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://tripora-2-0.onrender.com", // ✅ Adjust if your backend URL is different
+  baseURL: "https://tripora-2-0.onrender.com/tripora", // ✅ Adjust if your backend URL is different
 });
 
 // 🧠 Automatically attach token from localStorage for every request
@@ -36,7 +36,7 @@ API.interceptors.response.use(
       }
 
       try {
-        const { data } = await axios.post("http://localhost:5000/tripora/auth/refresh", { refreshToken });
+        const { data } = await axios.post("https://tripora-2-0.onrender.com/tripora/auth/refresh", { refreshToken });
         localStorage.setItem("token", data.token);
         originalRequest.headers["Authorization"] = `Bearer ${data.token}`;
         return API(originalRequest); // Retry the original request with the new token
