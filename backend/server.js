@@ -1,3 +1,4 @@
+// backend/server.js
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -16,8 +17,13 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: 'https://tripora-2-0-frontend.onrender.com' // Allow requests from your React frontend
+  origin: [
+    "http://localhost:3000",
+    "https://tripora-2-0-frontend.onrender.com"
+  ],
+  credentials: true
 }));
+
 app.use(express.json());
 
 // Serve static files from the 'uploads' directory
