@@ -58,3 +58,76 @@
 .navbar-links a.active {
   color: #28a745; /* Highlight color */
 }
+
+/* Hamburger Menu Icon (hidden on desktop) */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 1001; /* Ensure it's above the menu */
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #333;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Responsive Design for Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  .navbar-right {
+    gap: 1rem; /* Reduce gap on mobile */
+  }
+
+  .navbar-links {
+    position: absolute;
+    left: 0;
+    top: 68px; /* Position below the navbar */
+    background-color: #fff;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    
+    /* Smooth slide-down animation */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-links.active {
+    max-height: 500px; /* Animate to a height that fits all links */
+    padding-bottom: 1rem;
+  }
+
+  .navbar-links li {
+    width: 100%;
+  }
+
+  .navbar-links a {
+    display: block;
+    padding: 1.25rem 0;
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .hamburger {
+    display: block; /* Show hamburger on mobile */
+  }
+
+  /* Animate hamburger to 'X' when active */
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}

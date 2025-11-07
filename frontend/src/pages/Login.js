@@ -11,9 +11,19 @@ export default function Login({ onSwitchToRegister, onSuccess }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await login(email, password);
+            const res = await login(email, password); // Capture the response
+            
+            // Check the user's role from the response
+            const role = res.data.user.role;
+
             if (onSuccess) onSuccess(); // Close the modal on success
-            navigate('/'); // redirect to homepage
+
+            // Redirect based on role
+            if (role === 'admin') {
+                navigate('/admin'); // Redirect admin to the dashboard
+            } else {
+                navigate('/'); // Redirect regular users to the homepage
+            }
         } catch (err) {
             alert('Login failed: ' + err.response?.data?.message);
         }

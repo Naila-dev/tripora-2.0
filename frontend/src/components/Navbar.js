@@ -1,11 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import '../styles/navbar.css'; // Import the new CSS file
 
 export default function Navbar({ onLoginClick, onRegisterClick }) {
   const { user, logout } = useContext(AuthContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const firstName = user?.name?.split(' ')[0];
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <nav className="navbar-container">
@@ -17,14 +26,18 @@ export default function Navbar({ onLoginClick, onRegisterClick }) {
 
       {/* Right Side */}
       <div className="navbar-right">
-        <ul className="navbar-links">
-          <li><NavLink to="/">Home</NavLink></li>
-          <li><NavLink to="/about">About</NavLink></li>
-          <li><NavLink to="/tours-list">Tours</NavLink></li>
-          <li><NavLink to="/blog">Blog</NavLink></li>
-          <li><NavLink to="/contact">Contact</NavLink></li>
+        <ul className={isMenuOpen ? "navbar-links active" : "navbar-links"}>
+          <li><NavLink to="/" onClick={closeMobileMenu}>Home</NavLink></li>
+          <li><NavLink to="/about" onClick={closeMobileMenu}>About</NavLink></li>
+          <li><NavLink to="/tours-list" onClick={closeMobileMenu}>Tours</NavLink></li>
+          <li><NavLink to="/blog" onClick={closeMobileMenu}>Blog</NavLink></li>
+          <li><NavLink to="/contact" onClick={closeMobileMenu}>Contact</NavLink></li>
+          {/* Add Admin Dashboard link if user is an admin */}
+          {user && user.role === 'admin' && (
+            <li><NavLink to="/admin" onClick={closeMobileMenu}>Admin</NavLink></li>
+          )}
         </ul>
-
+        
         {user ? (
           <div className="navbar-auth">
             <span className="navbar-user-greeting">Hi, {firstName}</span>
@@ -36,7 +49,15 @@ export default function Navbar({ onLoginClick, onRegisterClick }) {
             <button onClick={onRegisterClick} className="btn btn-success">Sign Up</button>
           </div>
         )}
+
+        {/* Hamburger Menu Toggle */}
+        <button className={isMenuOpen ? "hamburger active" : "hamburger"} onClick={toggleMenu} aria-label="Toggle navigation">
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+        </button>
       </div>
+
     </nav>
   );
 }
