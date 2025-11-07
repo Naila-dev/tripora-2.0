@@ -16,21 +16,24 @@ const AdminLogin = () => {
     }
   }, [user, navigate]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await login(form.email, form.password);
-      // After login, the user object in context is updated. We check that.
-      if (res.data.user.role !== "admin") {
-        setError("Access denied: Not an admin");
-        // Note: You might want to log the user out here if they are not an admin.
-        return;
-      }
-      navigate("/admin"); // Redirect on successful admin login
-    } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
+
+  try {
+    const res = await login(form.email, form.password);
+    const role = res.data.user.role;
+
+    if (role === "admin") {
+      navigate("/admin");        // admin page
+    } else {
+      navigate("/dashboard");    // normal user page
     }
-  };
+  } catch (err) {
+    setError(err.response?.data?.message || "Login failed");
+  }
+};
+
 
   return (
     <div className="container py-5" style={{ maxWidth: "400px" }}>
