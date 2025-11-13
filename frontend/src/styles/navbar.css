@@ -77,12 +77,9 @@
   background-color: #333;
   transition: all 0.3s ease-in-out;
 }
-
-/* Responsive Design for Mobile (max-width: 768px) */
 @media (max-width: 768px) {
-  .navbar-right {
-    gap: 1rem; /* Reduce gap on mobile */
-  }
+  .nav-links { display: none; }
+  .menu-icon { display: block; }
 
   .navbar-links {
     position: absolute;
@@ -131,3 +128,5 @@
     transform: translateY(-8px) rotate(-45deg);
   }
 }
+
+
