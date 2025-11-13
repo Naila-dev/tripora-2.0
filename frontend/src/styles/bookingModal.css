@@ -44,3 +44,12 @@
     height: 100%;
     object-fit: cover;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 576px) {
+    .booking-modal-content {
+        width: 95%;
+        padding: 1.5rem;
+        max-width: none; /* Allow it to shrink */
+    }
+}

@@ -1,25 +1,20 @@
-//frontend/src/components/Navbar.js
+// frontend/src/components/Navbar.js
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import '../styles/navbar.css'; // Import the new CSS file
+import '../styles/navbar.css';
 
 export default function Navbar({ onLoginClick, onRegisterClick }) {
   const { user, logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const firstName = user?.name?.split(' ')[0];
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMobileMenu = () => setIsMenuOpen(false);
 
   return (
     <nav className="navbar-container">
-      {/* Left Side */}
+      {/* Left Side: Logo */}
       <NavLink to="/" className="navbar-brand">
         <img src="images/logo.png" alt="Tripora Logo" className="navbar-logo" />
         <span className="navbar-title">Tripora</span> Tours
@@ -27,18 +22,18 @@ export default function Navbar({ onLoginClick, onRegisterClick }) {
 
       {/* Right Side */}
       <div className="navbar-right">
-        <ul className={isMenuOpen ? "navbar-links active" : "navbar-links"}>
-          <li><NavLink to="/" onClick={closeMobileMenu}>Home</NavLink></li>
-          <li><NavLink to="/about" onClick={closeMobileMenu}>About</NavLink></li>
-          <li><NavLink to="/tours-list" onClick={closeMobileMenu}>Tours</NavLink></li>
-          <li><NavLink to="/blog" onClick={closeMobileMenu}>Blog</NavLink></li>
-          <li><NavLink to="/contact" onClick={closeMobileMenu}>Contact</NavLink></li>
-          {/* Add Admin Dashboard link if user is an admin */}
-          {user && user.role === 'admin' && (
-            <li><NavLink to="/admin" onClick={closeMobileMenu}>Admin</NavLink></li>
-          )}
-        </ul>
-        
+        {/* Hamburger Menu */}
+        <button
+          className={isMenuOpen ? 'hamburger active' : 'hamburger'}
+          onClick={toggleMenu}
+          aria-label="Toggle navigation"
+        >
+          <span className="bar"></span>
+          <span className="bar"></span>
+          <span className="bar"></span>
+        </button>
+
+        {/* Auth Buttons - always visible */}
         {user ? (
           <div className="navbar-auth">
             <span className="navbar-user-greeting">Hi, {firstName}</span>
@@ -51,14 +46,18 @@ export default function Navbar({ onLoginClick, onRegisterClick }) {
           </div>
         )}
 
-        {/* Hamburger Menu Toggle */}
-        <button className={isMenuOpen ? "hamburger active" : "hamburger"} onClick={toggleMenu} aria-label="Toggle navigation">
-            <span className="bar"></span>
-            <span className="bar"></span>
-            <span className="bar"></span>
-        </button>
+        {/* Collapsible Links */}
+        <ul className={isMenuOpen ? 'navbar-links active' : 'navbar-links'}>
+          <li><NavLink to="/" onClick={closeMobileMenu}>Home</NavLink></li>
+          <li><NavLink to="/about" onClick={closeMobileMenu}>About</NavLink></li>
+          <li><NavLink to="/tours-list" onClick={closeMobileMenu}>Tours</NavLink></li>
+          <li><NavLink to="/blog" onClick={closeMobileMenu}>Blog</NavLink></li>
+          <li><NavLink to="/contact" onClick={closeMobileMenu}>Contact</NavLink></li>
+          {user && user.role === 'admin' && (
+            <li><NavLink to="/admin" onClick={closeMobileMenu}>Admin</NavLink></li>
+          )}
+        </ul>
       </div>
-
     </nav>
   );
 }

@@ -8,9 +8,9 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: flex;
-  justify-content: space-between; /* This is the key property */
+  justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 2rem; /* Vertical and horizontal padding */
+  padding: 0.75rem 2rem;
 }
 
 /* Left side: Logo and Title */
@@ -36,7 +36,7 @@
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 2rem; /* Space between links and buttons */
+  gap: 2rem;
 }
 
 .navbar-links {
@@ -44,7 +44,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 1.5rem; /* Space between each link */
+  gap: 1.5rem;
 }
 
 .navbar-links a {
@@ -56,17 +56,24 @@
 
 .navbar-links a:hover,
 .navbar-links a.active {
-  color: #28a745; /* Highlight color */
+  color: #28a745;
 }
 
-/* Hamburger Menu Icon (hidden on desktop) */
+/* Auth buttons */
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Hamburger Menu Icon */
 .hamburger {
   display: none;
   cursor: pointer;
   background: none;
   border: none;
   padding: 0;
-  z-index: 1001; /* Ensure it's above the menu */
+  z-index: 1001;
 }
 
 .bar {
@@ -77,20 +84,37 @@
   background-color: #333;
   transition: all 0.3s ease-in-out;
 }
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .menu-icon { display: block; }
 
+/* RESPONSIVE SECTION */
+@media (max-width: 768px) {
+  /* Stack the navbar elements */
+  .navbar-container {
+    padding: 0.75rem 1.25rem;
+  }
+
+  /* Keep navbar-right visible, stack its children */
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+  }
+
+  /* Show hamburger on mobile */
+  .hamburger {
+    display: block;
+  }
+
+  /* Collapsible menu styling */
   .navbar-links {
     position: absolute;
+    top: 68px;
     left: 0;
-    top: 68px; /* Position below the navbar */
-    background-color: #fff;
     width: 100%;
+    background-color: #fff;
     flex-direction: column;
+    align-items: center;
     text-align: center;
-    
-    /* Smooth slide-down animation */
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease-in-out;
@@ -98,7 +122,7 @@
   }
 
   .navbar-links.active {
-    max-height: 500px; /* Animate to a height that fits all links */
+    max-height: 500px;
     padding-bottom: 1rem;
   }
 
@@ -113,8 +137,11 @@
     font-size: 1.1rem;
   }
 
-  .hamburger {
-    display: block; /* Show hamburger on mobile */
+  /* Keep Login / Sign Up visible beside hamburger */
+  .navbar-auth {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
   }
 
   /* Animate hamburger to 'X' when active */
@@ -128,5 +155,3 @@
     transform: translateY(-8px) rotate(-45deg);
   }
 }
-
-

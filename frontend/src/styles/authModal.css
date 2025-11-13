@@ -98,3 +98,12 @@
   padding: 0;
   text-decoration: underline;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 576px) {
+  .auth-modal-content {
+    width: 95%;
+    padding: 1.5rem;
+    max-width: none; /* Allow it to shrink */
+  }
+}
